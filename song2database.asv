@@ -12,7 +12,7 @@ function [matrix] = song2database(song)
     N = (floor(13/2)+1);
     M(N,N) = 0;
     BW = abs(S) > imdilate(abs(S), M);
-    imwrite(BW, ['songs\Constelacion ' song '.png']);
+    imwrite(BW, ['songs\Constelacion' song '.png']);
 
     matrix = BW;
 
