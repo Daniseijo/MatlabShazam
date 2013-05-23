@@ -1,4 +1,4 @@
-function [matrix] = song2database(song)
+function [matrix S T] = song2database(song)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,7 +6,7 @@ function [matrix] = song2database(song)
     Y = resample(Y,8000,FS);
     Y = mean(Y,2); % Media entre dos canales al ser estéreo
     Y = Y-mean(Y); % Eliminamos offset
-    S = spectrogram(Y,2048,1024,4096,8000);
+    [S F T] = spectrogram(Y,3000,128,256,8000);
 
     M = ones(13);
     N = (floor(13/2)+1);

@@ -8,13 +8,13 @@ function [matrix Y] = song2hash(song, ruido)
     Y = Y-mean(Y);
     dim = size(Y);
     Y = Y + (ruido/5)*(randn(dim(1),dim(2)));
-    S = spectrogram(Y,2048,1024,4096,8000);
+    S = spectrogram(Y,3000,128,256,8000);
 
     M = ones(13);
     N = (floor(13/2)+1);
     M(N,N) = 0;
     BW = abs(S) > imdilate(abs(S), M);
-    imwrite(BW, ['Constelacion' song '.png']);
+    imwrite(BW, ['Constelacion ' song '.png']);
 
     matrix = BW;
 
