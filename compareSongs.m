@@ -2,8 +2,8 @@ function [Img grafica t] = compareSongs(matrix)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
     d = dir('songs\*.png');
-    for i = 1 : length(d)
-    % i = 1;
+    %for i = 1 : length(d)
+    i = 1;
         Img = imread(['songs\' d(i).name]);
         aux = size(Img);
         aux1 = size(matrix);
@@ -16,7 +16,7 @@ function [Img grafica t] = compareSongs(matrix)
             grafica(j) = length(auxMat2(auxMat2==0));
         end
         t = 1 : (aux(2)-aux1(2));
-    end
+    %end
 end
 
 %% 

@@ -52,7 +52,9 @@ song2database('Rising Sun');
 
 %% Muestra a comparar
 
-[Img grafica t] = compareSongs(song2hash('Falling Slowly Pic'));
+
+[matrix Y] = song2hash('Falling Slowly Pic', 0.2);
+[Img grafica t] = compareSongs2(matrix);
 imshow(Img);
 
 
