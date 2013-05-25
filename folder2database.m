@@ -1,6 +1,8 @@
 function [matrix S T] = folder2database(folder)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% Para crear la base de datos
+%   Se toma una carpeta existente que contenga las canciones a almacenar.
+%   Muestreo, eliminación de offset y obtención del espectrograma y el mapa
+%   de constelación
     d = dir([folder '\*.wav']);
     for i = 1 : length(d)
         song = d(i).name(1:length(d(i).name)-4);

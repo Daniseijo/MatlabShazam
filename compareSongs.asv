@@ -1,9 +1,7 @@
 function [Img grafica t cancion maximos] = compareSongs(matrix)
 % Comparar grabación con base de datos.
 %   Se hace xor entre los mapas de constelación de la grabación y de las
-%   canciones de la base de datos. Se representa en una gráfica el número
-%   de coincidencias en función del instante de grabación. Se reconoce la
-%   canción o no en función de un umbral.
+%   canciones de la base de datos. 
     d = dir('songs\*.png');
     maximos = zeros(1,4);
     match = false;

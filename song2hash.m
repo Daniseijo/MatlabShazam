@@ -1,6 +1,8 @@
 function [matrix Y] = song2hash(song, ruido)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% Para obtener mapa de constelación
+%   Se toma la muestra grabada.
+%   Muestreo, eliminación de offset, adición de ruido y obtención del
+%   espectrograma y el mapa de constelación.
 
     [Y FS] = wavread(['Pics\' song]);
     Y = resample(Y,8000,FS);
