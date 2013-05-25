@@ -1,9 +1,10 @@
-function [Img grafica t cancion maximos] = compareSongs(matrix)
+function [grafica t match] = compareSongs(matrix)
 % Comparar grabación con base de datos.
 %   Se hace xor entre los mapas de constelación de la grabación y de las
 %   canciones de la base de datos. Se representa en una gráfica el número
 %   de coincidencias en función del instante de grabación. Se reconoce la
 %   canción o no en función de un umbral.
+
     d = dir('songs\*.png');
     maximos = zeros(1,4);
     match = false;
@@ -31,10 +32,13 @@ function [Img grafica t cancion maximos] = compareSongs(matrix)
                 [X I] = max(grafAux);
                 grafAux(I) = 0;
                 maximos(k) = X;
-                if ((maximos(1)/maximos(k) > 2) && maximos(1) > 15)
-                    disp(['La cancion es: ' cancion]);
+                if ((maximos(1)/maximos(k) > 2) && maximos(1) > 12)
+                    t = 1 : (aux(2)-aux1(2));
+                    plot (t, grafica);
                     load(['songs\Tiempo' cancion]);
-                    disp(['El momento de grabación es aproximadamente: ' sec2mins(T(Imax))]);
+                    message = sprintf(['La cancion es: ' cancion '\n'...
+                        'El momento de grabación es aproximadamente: ' sec2mins(T(Imax))]);
+                    uiwait(msgbox(message, 'Coincidencia encontrada'));
                     match = true;
                     break;
                 end
@@ -44,11 +48,4 @@ function [Img grafica t cancion maximos] = compareSongs(matrix)
         end
     end
 end
-
-%% 
-
-%Las matrices son muy grandes
-
-%- Sacar gráfica
-%- Comprobar qué canción es
 
