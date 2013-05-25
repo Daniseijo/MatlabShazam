@@ -2,13 +2,14 @@ function [matrix Y] = song2hash(song, ruido)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-    [Y FS] = wavread(song);
+    [Y FS] = wavread(['Pics\' song]);
     Y = resample(Y,8000,FS);
     Y = mean(Y,2);
     Y = Y-mean(Y);
+    Y = Y/max(Y);
     dim = size(Y);
     Y = Y + (ruido/5)*(randn(dim(1),dim(2)));
-    S = spectrogram(Y,3000,128,256,8000);
+    S = spectrogram(Y,2048,128,256,8000);
 
     M = ones(13);
     N = (floor(13/2)+1);

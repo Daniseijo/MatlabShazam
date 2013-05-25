@@ -1,23 +1,44 @@
-function [Img grafica t cancion] = compareSongs(matrix)
+function [Img grafica t cancion maximos] = compareSongs(matrix)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
     d = dir('songs\*.png');
-    cancion = d(1).name;
-    cancion = cancion(14:length(song)-4);
+    maximos = zeros(1,4);
+    match = false;
     for i = 1 : length(d)
-        Img = imread(['songs\' d(i).name]);
-        aux = size(Img);
-        aux1 = size(matrix);
-        auxMat = zeros(aux(1), aux(2));
-        grafica = zeros(1,(aux(2)-aux1(2)));
-        for j = 1 : (aux(2)-aux1(2))
-            mat = auxMat;
-            mat(:, j:(aux1(2)+(j-1))) = matrix;
-            auxMat2 = xor(Img, mat);
-            grafica(j) = length(auxMat2(auxMat2==0));
+        if (~match)
+            Img = imread(['songs\' d(i).name]);
+            aux = size(Img);
+            aux1 = size(matrix);
+            auxMat = zeros(aux(1), aux(2));
+            grafica = zeros(1,(aux(2)-aux1(2)));
+            for j = 1 : (aux(2)-aux1(2))
+                mat = auxMat;
+                mat(:, j:(aux1(2)+(j-1))) = matrix;
+                auxMat2 = xor(Img, mat);
+                grafica(j) = length(auxMat2(auxMat2==0));
+            end
+            
+            cancion = d(i).name;
+            cancion = cancion(14:length(cancion)-4);
+
+            grafica = grafica - mean(grafica);
+            grafAux = grafica;
+            [~, Imax] = max(grafica);
+            for k = 1 : 4
+                [X I] = max(grafAux);
+                grafAux(I) = 0;
+                maximos(k) = X;
+                if ((maximos(1)/maximos(k) > 2) && maximos(1) > 15)
+                    disp(['La cancion es: ' cancion]);
+                    load(['songs\Tiempo' cancion]);
+                    disp(['El momento de grabación es aproximadamente: ' sec2mins(T(Imax))]);
+                    match = true;
+                    break;
+                end
+            end
+
+            t = 1 : (aux(2)-aux1(2));
         end
-        
-        t = 1 : (aux(2)-aux1(2));
     end
 end
 
